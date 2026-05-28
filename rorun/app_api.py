@@ -157,7 +157,7 @@ def api_jadwal_lengkap():
 
 @app.route("/")
 def serve_root():
-    return send_from_directory("html", "index.html")
+    return send_from_directory("html", "home.html")
 
 @app.route("/assets/<path:path>")
 def serve_assets(path):
