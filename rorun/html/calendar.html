@@ -1,6 +1,6 @@
 <!DOCTYPE html><html class="dark" lang="id" style=""><head>
 <meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 <title>ROrun - Calendar</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="stylesheet" href="../assets/css/shared.css">
@@ -186,8 +186,10 @@
 </button>
 </div>
 </div>
-<div class="grid grid-cols-7 gap-[1px] bg-white/5" id="calendarGrid">
+<div class="overflow-x-auto pb-2">
+<div class="grid grid-cols-7 gap-[1px] bg-white/5 min-w-[700px]" id="calendarGrid">
     <!-- Grid will be populated by JS -->
+</div>
 </div>
 <!-- Footer Legend & Totals -->
 <div class="p-6 bg-surface-container-low border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
