@@ -21,7 +21,7 @@
 import json
 import os
 import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from engine import analisis_pengguna, generate_jadwal
 
@@ -150,14 +150,35 @@ def api_jadwal_lengkap():
         return jsonify({"error": str(e)}), 500
 
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Frontend Static Routing (Untuk hosting terpadu di Hugging Face / Vercel dll)
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route("/")
+def serve_root():
+    return send_from_directory("html", "index.html")
+
+@app.route("/assets/<path:path>")
+def serve_assets(path):
+    return send_from_directory("assets", path)
+
+@app.route("/<path:path>")
+def serve_html(path):
+    # Jika path adalah file html, kita layani langsung dari folder html
+    return send_from_directory("html", path)
+
+
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 7860))
     print("=" * 60)
-    print("  ROrun API Server")
-    print("  Berjalan di: http://localhost:5000")
+    print("  ROrun Unified Server")
+    print(f"  Berjalan di: http://0.0.0.0:{port}")
     print("  Endpoint:")
+    print("    GET  /")
     print("    GET  /api/health")
     print("    POST /api/analisis")
     print("    POST /api/jadwal")
     print("    POST /api/jadwal_lengkap")
     print("=" * 60)
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=port)
