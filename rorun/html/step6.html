@@ -1,0 +1,519 @@
+<!DOCTYPE html><html class="dark" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Review Final - ROrun</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="../assets/css/shared.css">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-fixed": "#241a00",
+          "on-tertiary-container": "#005b95",
+          "surface-variant": "#32353e",
+          "on-primary": "#003921",
+          "on-tertiary": "#003256",
+          "on-primary-container": "#00653f",
+          "on-surface-variant": "#bacbbd",
+          "on-secondary": "#3e2e00",
+          "tertiary-container": "#abd2ff",
+          "surface-container-highest": "#32353e",
+          "primary-container": "#19eb99",
+          "on-error": "#690005",
+          "tertiary-fixed-dim": "#9bcaff",
+          "outline": "#849588",
+          "on-error-container": "#ffdad6",
+          "on-tertiary-fixed-variant": "#004a7a",
+          "primary-fixed-dim": "#00e292",
+          "outline-variant": "#3b4a40",
+          "inverse-on-surface": "#2d3039",
+          "tertiary-fixed": "#d0e4ff",
+          "surface": "#10131b",
+          "surface-container-high": "#272a32",
+          "tertiary": "#dfecff",
+          "secondary-fixed-dim": "#f2c025",
+          "on-primary-fixed-variant": "#005232",
+          "on-primary-fixed": "#002111",
+          "inverse-surface": "#e0e2ee",
+          "secondary-container": "#d9aa00",
+          "on-tertiary-fixed": "#001d35",
+          "secondary-fixed": "#ffdf92",
+          "error-container": "#93000a",
+          "surface-container-low": "#181b24",
+          "on-secondary-container": "#554100",
+          "inverse-primary": "#006d44",
+          "surface-tint": "#00e292",
+          "surface-dim": "#10131b",
+          "on-background": "#e0e2ee",
+          "primary-fixed": "#51ffae",
+          "on-surface": "#e0e2ee",
+          "on-secondary-fixed-variant": "#594400",
+          "secondary": "#f8c62c",
+          "error": "#ffb4ab",
+          "surface-bright": "#363942",
+          "background": "#10131b",
+          "primary": "#9cffc6",
+          "surface-container-lowest": "#0b0e16",
+          "surface-container": "#1c1f28"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "unit": "8px",
+          "container-margin-mobile": "16px",
+          "container-margin-desktop": "48px",
+          "gutter": "16px",
+          "section-gap": "32px"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter"],
+          "metric-xl": ["JetBrains Mono"],
+          "headline-lg": ["Outfit"],
+          "display-lg": ["Outfit"],
+          "body-md": ["Inter"],
+          "headline-md": ["Outfit"],
+          "metric-md": ["JetBrains Mono"],
+          "display-lg-mobile": ["Outfit"],
+          "body-lg": ["Inter"]
+        },
+        "fontSize": {
+          "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+          "metric-xl": ["40px", { "lineHeight": "40px", "letterSpacing": "-0.05em", "fontWeight": "700" }],
+          "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+          "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+          "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+          "metric-md": ["20px", { "lineHeight": "24px", "fontWeight": "500" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .glass-panel {
+    background-color: hsla(225, 20%, 18%, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+  }
+  @keyframes shimmer {
+    100% { transform: translateX(200%) skewX(-12deg); }
+  }
+</style>
+</head>
+
+<body class="bg-background text-on-background font-body-md min-h-screen antialiased selection:bg-primary selection:text-surface">
+<div class="flex flex-col lg:flex-row h-screen overflow-hidden mb-6">
+
+  <!-- Kiri: Gambar Motivasi -->
+  <div class="hidden lg:flex lg:w-[45%] relative overflow-hidden bg-surface-container-lowest border-r border-white/5">
+    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
+      style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHwjp0YM-HYokgbA0jZYGDTggnuh2s6Lr_y7Omkx732JXzSVoGIbdOoBx3TGUB-ximvjaQZZFIVfqjE50Y4Kn_WbkEDy7Djxaea_9JwdDcfTfIpHtMWvnjiI4f_4CyUSwy4Xb0ZgwZBT3O3hQFbSi4cy3djR-rRfdWNm9O42Ccqv5hwG5eIYRs48tP-GQZhh1i1FBRQ-e3B58TlCU3ttjtaD13bTnNc9a1hASfnOU3j3oiZrqUr131-pc6oOxOjdUz02l-Qo76LQ')">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-background/90"></div>
+    <div class="absolute bottom-24 left-16 max-w-md z-10">
+      <h2 class="text-[64px] font-display-lg text-primary mb-6 leading-[1.1] tracking-tighter">Performa<br>Maksimal.</h2>
+      <p class="text-on-surface-variant font-body-lg text-xl max-w-xs">Data akurat menghasilkan analisis presisi yang membawa Anda melampaui batas wajar.</p>
+    </div>
+  </div>
+
+  <!-- Kanan: Form Konfirmasi -->
+  <div class="w-full lg:w-[55%] flex flex-col relative px-container-margin-mobile md:px-16 py-12 h-full overflow-y-auto bg-background mb-6 lg:py-10">
+
+    <!-- Background Mobile -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-10 lg:hidden pointer-events-none"
+      style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiy_gzeRgvEA4jiB7tqPXdoOq_0gUZqjOWSaVhPGGMiX50dUCKFpKT4f6R24_iFLhrE9XJtATjEItm81UuZ0u_Fk5n9GejFioFM1P_TR0Fr3q1cDQfrI86HYLwl92ZeJ9JsVjBzEE-sIkoneand05MHa8okJh7l3k6gYmZa5A8Po8IYrxBoy-mQkkM5LWyNJ0malairhzIGQZEGXoKXOgi5_p05TER0iQF11uY6x-YO0roGCbhUw_6rdI4_VuZelrtyMtVJSjqzQ')">
+    </div>
+
+    <div class="relative z-10 flex flex-col h-full max-w-3xl mx-auto w-full mb-6">
+
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-6">
+        <button onclick="goTo('step5.html')" aria-label="Kembali"
+          class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center h-12 w-12 rounded-full hover:bg-surface-variant/50">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
+        </button>
+        <div class="flex flex-col items-center select-none">
+          <img src="https://lh3.googleusercontent.com/aida/ADBb0ujN_L95LDMVtjmx__ZPayF14WCN0JbyqeyslxpTdxzXlBCxkeSLq-f_Q22--5WG2UApsUnlT_l0CDteJ7dSoqONfxvkgQ09YhtvzO2x_Gv9SKUVDHxLOFIIyFvFvP2fp_HcikqsylxLVKZj2JcO9zSHxFyPHYDr2kGBzGtq5tZ2XHKrJbNpZ_wTzi0d6VzaPvkdSypgDlq6LdskMIHgWRDhq4sOU39AAh4VvL3WJdSbQX-CMbtJBQCNaQ"
+            style="cursor:pointer;" onclick="window.location.href='home.html'" alt="ROrun Logo" class="w-[120px] h-auto object-contain">
+        </div>
+        <div class="w-12"></div>
+      </header>
+
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex justify-between items-end mb-4">
+          <span class="text-on-surface-variant font-label-sm uppercase tracking-[0.2em] text-xs">Tahap Verifikasi Akhir</span>
+          <span class="text-primary font-metric-md font-bold text-base">100%</span>
+        </div>
+        <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+          <div class="bg-primary w-full h-full shadow-[0_0_12px_rgba(156,255,198,0.8)]"></div>
+        </div>
+      </div>
+
+      <!-- Konten Utama -->
+      <div class="flex-grow">
+        <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mb-4 tracking-tight">Konfirmasi Data</h1>
+        <p class="text-on-surface-variant font-body-md text-lg max-w-xl mb-4">
+          Tinjau kembali parameter biometrik dan target Anda. Algoritma kami membutuhkan data yang presisi untuk merancang program yang efektif.
+        </p>
+
+        <!-- Bento Grid -->
+        <div class="glass-panel rounded-2xl mb-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 space-y-6">
+
+          <!-- Profil Biometrik -->
+          <div>
+            <h3 class="text-primary font-label-sm uppercase tracking-[0.15em] mb-5 flex items-center gap-3">
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">vital_signs</span>
+              Profil Biometrik
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+
+              <!-- Tinggi -->
+              <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5">
+                <span class="text-on-surface-variant font-label-sm mb-1 block">Tinggi</span>
+                <div class="text-on-surface font-metric-md text-lg">
+                  <span id="konfirm-tinggi">-</span>
+                  <span class="text-sm text-on-surface-variant font-body-md"> cm</span>
+                </div>
+              </div>
+
+              <!-- Berat -->
+              <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5">
+                <span class="text-on-surface-variant font-label-sm mb-1 block">Berat</span>
+                <div class="text-on-surface font-metric-md text-lg">
+                  <span id="konfirm-berat">-</span>
+                  <span class="text-sm text-on-surface-variant font-body-md"> kg</span>
+                </div>
+              </div>
+
+              <!-- Usia -->
+              <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5">
+                <span class="text-on-surface-variant font-label-sm mb-1 block">Usia</span>
+                <div class="text-on-surface font-metric-md text-lg">
+                  <span id="konfirm-usia">-</span>
+                  <span class="text-sm text-on-surface-variant font-body-md"> thn</span>
+                </div>
+              </div>
+
+              <!-- BMI -->
+              <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5">
+                <span class="text-on-surface-variant font-label-sm mb-1 block">BMI</span>
+                <div class="text-on-surface font-body-md font-semibold text-lg">
+                  <span id="konfirm-bmi">-</span>
+                  <span id="konfirm-bmi-label" class="text-sm text-primary ml-1"></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Target & Mode + Metrik Tambahan -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Target & Mode -->
+            <div>
+              <h3 class="text-primary font-label-sm uppercase tracking-[0.15em] mb-3 flex items-center gap-3">
+                <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">flag</span>
+                Target &amp; Mode
+              </h3>
+              <div class="space-y-3">
+
+                <!-- Target Jarak -->
+                <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5 flex items-center justify-between">
+                  <div>
+                    <span class="text-on-surface-variant font-label-sm mb-1 block text-xs">Target Jarak</span>
+                    <div class="text-on-surface font-headline-md text-lg" id="konfirm-target">-</div>
+                  </div>
+                  <span class="material-symbols-outlined text-2xl text-primary">route</span>
+                </div>
+
+                <!-- Mode Latihan -->
+                <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5 flex items-center justify-between">
+                  <div>
+                    <span class="text-on-surface-variant font-label-sm mb-1 block text-xs">Mode Latihan</span>
+                    <div class="text-on-surface font-headline-md text-lg" id="konfirm-mode">-</div>
+                  </div>
+                  <span class="material-symbols-outlined text-2xl text-secondary">track_changes</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Metrik Tambahan -->
+            <div>
+              <h3 class="text-primary font-label-sm uppercase tracking-[0.15em] mb-3 flex items-center gap-3">
+                <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+                Metrik Tambahan
+              </h3>
+              <div class="space-y-3">
+
+                <!-- HRM -->
+                <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5 flex items-center justify-between">
+                  <div>
+                    <span class="text-on-surface-variant font-label-sm mb-1 block text-xs">Smartwatch / HRM</span>
+                    <div class="text-on-surface font-body-md font-semibold" id="konfirm-hrm">-</div>
+                  </div>
+                  <span class="material-symbols-outlined text-2xl text-primary/70">watch</span>
+                </div>
+
+                <!-- Personal Best -->
+                <div class="bg-surface-container/30 rounded-xl p-4 border border-white/5 flex items-center justify-between">
+                  <div>
+                    <span class="text-on-surface-variant font-label-sm mb-1 block text-xs">Personal Best (PB)</span>
+                    <div class="text-on-surface font-body-md font-semibold" id="konfirm-pb">-</div>
+                  </div>
+                  <span class="material-symbols-outlined text-2xl text-primary">military_tech</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Kalender Program -->
+      <div class="glass-panel rounded-2xl mb-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] p-6">
+
+        <h3 class="text-primary font-label-sm uppercase tracking-[0.15em] mb-5 flex items-center gap-3">
+          <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1;">
+            calendar_month
+          </span>
+          Kalender Program
+        </h3>
+
+        <p class="text-on-surface-variant font-body-md text-sm mb-6">
+          Pilih tanggal hari H lomba dan kapan Anda mulai berlatih.
+          Sistem akan menyesuaikan jadwal Hal Higdon agar
+          <strong class="text-primary">hari lomba selalu di kolom paling kanan</strong>.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Tanggal Lomba -->
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2"
+                   for="tanggal_lomba">
+              🏁 Tanggal Hari H Lomba
+            </label>
+            <input type="date" id="tanggal_lomba"
+              class="w-full rounded-xl bg-surface-container border border-outline-variant
+                     px-4 py-3 text-on-surface font-body-md focus:outline-none
+                     focus:ring-2 focus:ring-primary/50 focus:border-primary
+                     transition-all duration-200"
+              onchange="hitungDurasi()">
+          </div>
+
+          <!-- Tanggal Mulai -->
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2"
+                   for="tanggal_mulai">
+              🏃 Mulai Berlatih
+            </label>
+            <input type="date" id="tanggal_mulai"
+              class="w-full rounded-xl bg-surface-container border border-outline-variant
+                     px-4 py-3 text-on-surface font-body-md focus:outline-none
+                     focus:ring-2 focus:ring-primary/50 focus:border-primary
+                     transition-all duration-200"
+              onchange="hitungDurasi()">
+          </div>
+
+        </div>
+
+        <!-- Info durasi (muncul setelah kedua tanggal diisi) -->
+        <div class="hidden mt-5 p-4 rounded-xl bg-primary/5 border border-primary/20"
+             id="durasi-info">
+          <p class="text-primary font-body-md text-sm font-semibold" id="durasi-teks">
+            —
+          </p>
+          <p class="text-on-surface-variant font-label-sm text-xs mt-1" id="durasi-sub">
+            —
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Tombol Mulai Analisis -->
+      <div class="mt-auto">
+        <button onclick="mulaiAnalisis()"
+          class="w-full bg-primary text-[#0F121A] font-headline-md font-bold px-8 rounded-2xl flex justify-center items-center gap-4 hover:bg-primary-fixed-dim transition-all duration-300 shadow-[0_0_30px_rgba(156,255,198,0.25)] hover:shadow-[0_0_50px_rgba(156,255,198,0.45)] hover:-translate-y-1 group relative overflow-hidden py-4">
+          <span class="relative z-10 flex items-center gap-4 text-xl">
+            Mulai Analisis Program
+            <span class="material-symbols-outlined text-2xl group-hover:translate-x-2 transition-transform duration-300">rocket_launch</span>
+          </span>
+          <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-[shimmer_1.5s_infinite]"></div>
+        </button>
+        <p class="text-center text-on-surface-variant/60 font-label-sm mt-4">
+          Dengan menekan tombol, Anda menyetujui
+          <a class="text-primary hover:underline underline-offset-4" href="#">Ketentuan Layanan</a> &amp;
+          <a class="text-primary hover:underline underline-offset-4" href="#">Kebijakan Privasi</a> kami.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+
+// Label target jarak yang lebih readable
+const labelJarak = {
+  '5k':  '5 Kilometer',
+  '10k': '10 Kilometer',
+  'hm':  'Half Marathon (21,1 km)',
+  'fm':  'Full Marathon (42,2 km)'
+};
+
+// Label mode latihan
+const labelMode = {
+  'beginner':  'Mode Pemula',
+  'realistic': 'Mode Realistis',
+  'ambitious': 'Mode Ambisius'
+};
+
+// Kategori BMI
+function kategoriBMI(bmi) {
+  if (bmi < 18.5) return 'Kurus';
+  if (bmi < 25)   return 'Normal';
+  if (bmi < 30)   return 'Gemuk';
+  return 'Obesitas';
+}
+
+// Tampilkan semua data saat halaman dibuka
+window.addEventListener('DOMContentLoaded', function () {
+  const data = AppState.getAll();
+
+  // Biometrik
+  setText('konfirm-tinggi', data.tinggi || '-');
+  setText('konfirm-berat',  data.berat  || '-');
+  setText('konfirm-usia',   data.usia   || '-');
+
+  // Hitung & tampilkan BMI
+  if (data.tinggi && data.berat) {
+    const tinggiM = parseFloat(data.tinggi) / 100;
+    const bmi     = (parseFloat(data.berat) / (tinggiM * tinggiM)).toFixed(1);
+    setText('konfirm-bmi',       bmi);
+    setText('konfirm-bmi-label', '(' + kategoriBMI(parseFloat(bmi)) + ')');
+  }
+
+  // Target & Mode
+  setText('konfirm-target', labelJarak[data.target_jarak] || data.target_jarak || '-');
+  setText('konfirm-mode',   labelMode[data.mode_latihan]  || data.mode_latihan  || '-');
+
+  // HRM
+  setText('konfirm-hrm', data.punya_hrm === 'yes' ? 'Terhubung' : 'Tidak Ada');
+
+  // Personal Best
+  if (data.punya_pb === 'ya' && data.pb_jarak) {
+    const jam    = data.pb_jam    || '0';
+    const menit  = data.pb_menit  || '0';
+    const detik  = data.pb_detik  || '0';
+    const jarak  = (data.pb_jarak || '').toUpperCase();
+    const waktu  = jam + ':' + String(menit).padStart(2, '0') + ':' + String(detik).padStart(2, '0');
+    setText('konfirm-pb', waktu + ' (' + jarak + ')');
+  } else {
+    setText('konfirm-pb', 'Tidak Ada');
+  }
+});
+
+// Helper set teks
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+// Set default tanggal lomba = 8 minggu dari sekarang, mulai = hari ini
+(function setDefaultDates() {
+  const today = new Date();
+  const lomba = new Date(today);
+  lomba.setDate(lomba.getDate() + 56); // 8 minggu default
+
+  const fmt = d => d.toISOString().split('T')[0];
+  const elLomba = document.getElementById('tanggal_lomba');
+  const elMulai = document.getElementById('tanggal_mulai');
+  if (elLomba) {
+    elLomba.min   = fmt(new Date(today.getTime() + 7 * 86400000));
+    elLomba.value = fmt(lomba);
+  }
+  if (elMulai) {
+    elMulai.min   = fmt(today);
+    elMulai.max   = fmt(new Date(lomba.getTime() - 86400000));
+    elMulai.value = fmt(today);
+  }
+  hitungDurasi();
+})();
+
+function hitungDurasi() {
+  const elLomba = document.getElementById('tanggal_lomba');
+  const elMulai = document.getElementById('tanggal_mulai');
+  const info    = document.getElementById('durasi-info');
+  const teks    = document.getElementById('durasi-teks');
+  const sub     = document.getElementById('durasi-sub');
+
+  if (!elLomba?.value || !elMulai?.value) {
+    info.classList.add('hidden');
+    return;
+  }
+
+  const lomba = new Date(elLomba.value);
+  const mulai = new Date(elMulai.value);
+
+  // Perbaiki max tanggal mulai
+  elMulai.max = new Date(lomba.getTime() - 86400000).toISOString().split('T')[0];
+
+  const sisaHari  = Math.max(0, Math.round((lomba - mulai) / 86400000));
+  const minggu    = Math.floor(sisaHari / 7);
+  const sisa      = sisaHari % 7;
+  const hariLomba = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][lomba.getDay()];
+
+  const durStr = sisa === 0
+    ? `${minggu} minggu`
+    : `${minggu} minggu ${sisa} hari (${sisaHari} hari total)`;
+
+  info.classList.remove('hidden');
+  teks.textContent = `⏳ Durasi Persiapan: ${durStr}`;
+  sub.textContent  = `Mulai ${formatTgl(mulai)} → Lomba ${formatTgl(lomba)} · Race Day: ${hariLomba}`;
+}
+
+function formatTgl(d) {
+  return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+}
+
+// Tombol Mulai Analisis → simpan tanggal lalu ke loading
+function mulaiAnalisis() {
+  const tanggalLomba = document.getElementById('tanggal_lomba')?.value;
+  const tanggalMulai = document.getElementById('tanggal_mulai')?.value;
+
+  if (!tanggalLomba) {
+    alert('Pilih tanggal hari H lomba!');
+    return;
+  }
+  if (!tanggalMulai) {
+    alert('Pilih tanggal mulai latihan!');
+    return;
+  }
+
+  AppState.save('tanggal_lomba', tanggalLomba);
+  AppState.save('tanggal_mulai', tanggalMulai);
+
+  goTo('loading.html');
+}
+
+</script>
+</body>
+</html>

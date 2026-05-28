@@ -1,0 +1,313 @@
+<!DOCTYPE html><html class="dark" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ROrun - Riwayat Kesehatan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="../assets/css/shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#241a00",
+                        "on-tertiary-container": "#005b95",
+                        "surface-variant": "#32353e",
+                        "on-primary": "#003921",
+                        "on-tertiary": "#003256",
+                        "on-primary-container": "#00653f",
+                        "on-surface-variant": "#bacbbd",
+                        "on-secondary": "#3e2e00",
+                        "tertiary-container": "#abd2ff",
+                        "surface-container-highest": "#32353e",
+                        "primary-container": "#19eb99",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#9bcaff",
+                        "outline": "#849588",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#004a7a",
+                        "primary-fixed-dim": "#00e292",
+                        "outline-variant": "#3b4a40",
+                        "inverse-on-surface": "#2d3039",
+                        "tertiary-fixed": "#d0e4ff",
+                        "surface": "#10131b",
+                        "surface-container-high": "#272a32",
+                        "tertiary": "#dfecff",
+                        "secondary-fixed-dim": "#f2c025",
+                        "on-primary-fixed-variant": "#005232",
+                        "on-primary-fixed": "#002111",
+                        "inverse-surface": "#e0e2ee",
+                        "secondary-container": "#d9aa00",
+                        "on-tertiary-fixed": "#001d35",
+                        "secondary-fixed": "#ffdf92",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#181b24",
+                        "on-secondary-container": "#554100",
+                        "inverse-primary": "#006d44",
+                        "surface-tint": "#00e292",
+                        "surface-dim": "#10131b",
+                        "on-background": "#e0e2ee",
+                        "primary-fixed": "#51ffae",
+                        "on-surface": "#e0e2ee",
+                        "on-secondary-fixed-variant": "#594400",
+                        "secondary": "#f8c62c",
+                        "error": "#ffb4ab",
+                        "surface-bright": "#363942",
+                        "background": "#10131b",
+                        "primary": "#9cffc6",
+                        "surface-container-lowest": "#0b0e16",
+                        "surface-container": "#1c1f28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-margin-mobile": "16px",
+                        "container-margin-desktop": "48px",
+                        "gutter": "16px",
+                        "section-gap": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "metric-xl": ["JetBrains Mono"],
+                        "headline-lg": ["Outfit"],
+                        "display-lg": ["Outfit"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Outfit"],
+                        "metric-md": ["JetBrains Mono"],
+                        "display-lg-mobile": ["Outfit"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "metric-xl": ["40px", { "lineHeight": "40px", "letterSpacing": "-0.05em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "metric-md": ["20px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: hsla(225, 20%, 18%, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid hsla(0, 0%, 100%, 0.08);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #9cffc6;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #9cffc6;
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-primary/30 selection:text-primary">
+<!-- Suppressed TopAppBar and BottomNavBar as this is a linear onboarding flow -->
+<main class="flex-grow flex flex-col lg:flex-row min-h-screen max-h-screen overflow-hidden">
+<!-- Left Side: Hero Image / Branding (Desktop only) -->
+<div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-surface-container-low flex-col justify-between p-12 border-r border-white/5">
+<img alt="Athletic Health Context" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0OaHEloa4sxgoqE-n5xD2gnVUOyGn1aJLscT8ImgXCjQ4OD6otL3N7NUahiUPLHy4-X512-NhVbIHbgvZHMFBskxUNpBDQJrNpnYhvJtl5RLYCEVB4xAipgjvgwYUIOk_Wpa16guxkRg0mBfGldJ9MKq_G0d8k6WcPOHulY_mtxHusqOBjFDPyy4uJ_RGuglpFQ1m-UivRjG-qD9c9thgTeWFc-PHz0H1F0oVQ40gDlZdHWRpgT-gp1BmslmNyt8PnNHS0p4vuQ">
+<div class="absolute inset-0 bg-black/40 z-10"></div>
+<div class="relative z-20 flex flex-col justify-between h-full p-12">
+<div class="flex items-center gap-2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAADwCAYAAAD4pgDaAAAQAElEQVR4AeydCXxlRZX/67wEaBChO52kExhxQUUUEJFNAUVBhT84iiyDjqIIdLpxF8R1EEVxGHFXSNhBgbFVQFHUYXNQVBxl2ETFxlHBTjpJp7tZGzp59f+dJN2d7W331ql773u/fOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuK" alt="ROrun Logo" style="cursor:pointer;" onclick="window.location.href='home.html'" class="h-auto w-[120px] object-contain"></div>
+<div class="max-w-md">
+<p class="font-body-lg text-body-lg text-white/90 shadow-sm">Keselamatan adalah prioritas utama. Bantu kami memahami kondisi tubuhmu untuk menyesuaikan intensitas latihan yang optimal.</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Form Content -->
+<div class="w-full lg:w-1/2 flex flex-col px-container-margin-mobile py-8 md:px-12 justify-center bg-background relative z-10 overflow-y-auto lg:px-16 md:py-8">
+<!-- Mobile Logo Header -->
+<div class="flex lg:hidden items-center gap-2 mb-8"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAADwCAYAAAD4pgDaAAAQAElEQVR4AeydCXxlRZX/67wEaBChO52kExhxQUUUEJFNAUVBhT84iiyDjqIIdLpxF8R1EEVxGHFXSNhBgbFVQFHUYXNQVBxl2ETFxlHBTjpJp7tZGzp59f+dJN2d7W331ql773u/fOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuKfOrkblWnTn3rvfuK" alt="ROrun Logo" style="cursor:pointer;" onclick="window.location.href='home.html'" class="h-auto w-[100px] object-contain"></div>
+<!-- Progress Indicator -->
+<div class="w-full">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Langkah 4 dari 6</span>
+<span class="font-metric-md text-metric-md text-primary">67%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000 ease-out w-[60%] shadow-[0_0_10px_rgba(156,255,198,0.5)]" style="width: 66.67%;"></div>
+</div>
+</div>
+<!-- Header -->
+<div class="">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-2">Riwayat Kesehatan</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Informasi ini membantu algoritma kami menyesuaikan beban latihan untuk mencegah cedera.</p>
+</div>
+<!-- Form -->
+<form class="">
+<!-- Cardiovascular -->
+<div class="glass-panel p-4 rounded-xl transition-all duration-300 focus-within:ring-1 focus-within:ring-primary/50 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-white mb-1">Kardiovaskular</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Apakah Anda memiliki riwayat masalah jantung, tekanan darah tinggi, atau detak jantung tidak teratur?</p>
+</div>
+</div>
+<!-- Toggle -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 opacity-0" id="toggle_cardio" name="toggle_cardio" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer border border-white/10 relative transition-colors duration-300 before:absolute before:content-[''] before:h-5 before:w-5 before:rounded-full before:bg-on-surface-variant before:top-[1px] before:left-[1px] before:transition-transform before:duration-300" for="toggle_cardio"></label>
+</div>
+</div>
+<!-- Hidden Textarea (Simulated with JS later if checked) -->
+<div class="hidden mt-4 pt-4 border-t border-white/10" id="details_cardio">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Detail Riwayat Kardiovaskular</label>
+<textarea class="w-full bg-[#181C25] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 font-body-md transition-colors placeholder:text-on-surface-variant/50" placeholder="Jelaskan secara singkat kondisi atau pengobatan..." rows="2"></textarea>
+</div>
+</div>
+<!-- Respiratory -->
+<div class="glass-panel p-4 rounded-xl transition-all duration-300 focus-within:ring-1 focus-within:ring-primary/50 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">air</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-white mb-1">Pernapasan</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Pernahkah Anda didiagnosis menderita asma, atau mengalami sesak napas saat berolahraga ringan?</p>
+</div>
+</div>
+<!-- Toggle -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 opacity-0" id="toggle_resp" name="toggle_resp" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer border relative transition-colors duration-300 before:absolute before:content-[''] before:h-5 before:w-5 before:rounded-full before:bg-on-surface-variant before:top-[1px] before:left-[1px] before:transition-transform before:duration-300 bg-surface-container-high border-white/10" for="toggle_resp"></label>
+</div>
+</div>
+<!-- Visible Textarea because toggle is checked -->
+<div class="hidden mt-4 pt-4 border-t border-white/10" id="details_resp">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Detail Kondisi Pernapasan <span class="text-error">*</span></label>
+<textarea class="w-full bg-[#181C25] border border-primary/50 rounded-lg p-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 font-body-md transition-colors placeholder:text-on-surface-variant/50 shadow-[0_0_8px_rgba(156,255,198,0.1)]" placeholder="Asma ringan sejak kecil, menggunakan inhaler saat diperlukan." rows="2"></textarea>
+</div>
+</div>
+<!-- Injuries -->
+<div class="glass-panel p-4 rounded-xl transition-all duration-300 focus-within:ring-1 focus-within:ring-primary/50 focus-within:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">healing</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-white mb-1">Cedera Sendi &amp; Otot</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Apakah Anda mengalami cedera lutut, pergelangan kaki, atau pinggul dalam 6 bulan terakhir?</p>
+</div>
+</div>
+<!-- Toggle -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 opacity-0" id="toggle_injury" name="toggle_injury" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer border border-white/10 relative transition-colors duration-300 before:absolute before:content-[''] before:h-5 before:w-5 before:rounded-full before:bg-on-surface-variant before:top-[1px] before:left-[1px] before:transition-transform before:duration-300" for="toggle_injury"></label>
+</div>
+</div>
+<div class="hidden mt-4 pt-4 border-t border-white/10" id="details_injury">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Tingkat Keparahan Cedera</label>
+<select id="cedera_severity" class="w-full bg-[#181C25] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 font-body-md transition-colors mb-4">
+  <option value="rendah">Rendah (Pegal/nyeri ringan, sembuh dengan istirahat)</option>
+  <option value="sedang">Sedang (Butuh perawatan, sempat berhenti lari 1-2 minggu)</option>
+  <option value="parah">Parah (Robek ligamen, patah tulang, butuh fisioterapi/operasi)</option>
+</select>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Detail Cedera</label>
+<textarea class="w-full bg-[#181C25] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 font-body-md transition-colors placeholder:text-on-surface-variant/50" placeholder="Bagian yang cedera dan tingkat keparahannya..." rows="2"></textarea>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col-reverse sm:flex-row gap-4 sm:justify-between items-center mt-auto pt-4">
+<button onclick="goTo('step3.html')" class="w-full sm:w-auto px-6 py-3 rounded-lg font-headline-md text-headline-md text-on-surface-variant hover:text-white transition-colors duration-200 bg-transparent" type="button">
+                        Kembali
+                    </button>
+<button onclick="simpanStep4()" class="w-full sm:w-auto px-8 py-3 rounded-lg bg-primary text-[#0F121A] font-headline-md text-headline-md font-bold hover:bg-primary-fixed hover:shadow-[0_0_20px_rgba(156,255,198,0.4)] transition-all duration-200 flex items-center justify-center gap-2 group" type="button">
+                        Selanjutnya
+                        <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+<script>
+        // Simple script to toggle visibility of textareas based on toggle switches
+        // and handle visual state of the custom toggle
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            
+            // Initial state setup for custom CSS
+            const label = toggle.nextElementSibling;
+            if(toggle.checked) {
+                label.classList.add('bg-primary', 'border-primary');
+                label.classList.remove('bg-surface-container-high', 'border-white/10');
+                // Adjust pseudo element
+                let style = document.createElement('style');
+                style.innerHTML = `#${toggle.id} + label::before { transform: translateX(24px); background-color: #0F121A; }`;
+                document.head.appendChild(style);
+            }
+
+            toggle.addEventListener('change', function() {
+                const targetId = this.id.replace('toggle_', 'details_');
+                const targetEl = document.getElementById(targetId);
+                const label = this.nextElementSibling;
+                
+                if(this.checked) {
+                    if(targetEl) {
+                        targetEl.classList.remove('hidden');
+                        targetEl.classList.add('animate-[fadeIn_0.3s_ease-out]');
+                    }
+                    label.classList.add('bg-primary', 'border-primary');
+                    label.classList.remove('bg-surface-container-high', 'border-white/10');
+                    
+                    // Dynamic style for pseudo element to slide
+                    let style = document.createElement('style');
+                    style.id = `style-${this.id}`;
+                    style.innerHTML = `#${this.id} + label::before { transform: translateX(24px); background-color: #0F121A; }`;
+                    document.head.appendChild(style);
+
+                } else {
+                    if(targetEl) targetEl.classList.add('hidden');
+                    label.classList.remove('bg-primary', 'border-primary');
+                    label.classList.add('bg-surface-container-high', 'border-white/10');
+                    
+                    // Remove sliding style
+                    const existingStyle = document.getElementById(`style-${this.id}`);
+                    if(existingStyle) existingStyle.remove();
+                }
+            });
+        });
+    </script>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+function simpanStep4() {
+  const kardio  = document.getElementById('toggle_cardio')?.checked || false;
+  const napas   = document.getElementById('toggle_resp')?.checked || false;
+  const cedera  = document.getElementById('toggle_injury')?.checked || false;
+
+  const detailKardio = document.querySelector('#details_cardio textarea')?.value || '';
+  const detailNapas  = document.querySelector('#details_resp textarea')?.value || '';
+  const detailCedera = document.querySelector('#details_injury textarea')?.value || '';
+  const cederaSeverity = document.getElementById('cedera_severity')?.value || 'rendah';
+
+  AppState.save('riwayat_kardio', kardio);
+  AppState.save('riwayat_napas', napas);
+  AppState.save('riwayat_cedera', cedera);
+  AppState.save('cedera_severity', cederaSeverity);
+  AppState.save('detail_kardio', detailKardio);
+  AppState.save('detail_napas', detailNapas);
+  AppState.save('detail_cedera', detailCedera);
+
+  goTo('step5.html');
+}
+</script>
+
+</body></html>

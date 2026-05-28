@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="dark" lang="id">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ROrun – Menganalisis...</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface":                "#10131b",
+        "surface-container":      "#1c1f28",
+        "surface-container-high": "#272a32",
+        "on-surface":             "#e0e2ee",
+        "on-surface-variant":     "#bacbbd",
+        "primary":                "#9cffc6",
+        "primary-container":      "#19eb99",
+        "secondary":              "#f8c62c",
+        "outline-variant":        "#3b4a40",
+        "error":                  "#ffb4ab",
+        "error-container":        "#93000a",
+      },
+      fontFamily: {
+        "body-md":    ["Inter"],
+        "metric-xl":  ["JetBrains Mono"],
+        "metric-md":  ["JetBrains Mono"],
+        "headline-lg":["Outfit"],
+        "label-sm":   ["Inter"],
+      },
+      fontSize: {
+        "metric-xl": ["40px", { lineHeight:"40px", letterSpacing:"-0.05em", fontWeight:"700" }],
+        "metric-md": ["20px", { lineHeight:"24px", fontWeight:"500" }],
+        "body-md":   ["16px", { lineHeight:"24px", fontWeight:"400" }],
+        "label-sm":  ["12px", { lineHeight:"16px", fontWeight:"600" }],
+      }
+    }
+  }
+}
+</script>
+<style>
+  .stroke-dash {
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    animation: dash 2.5s ease-in-out infinite alternate, rotate 5s linear infinite;
+    transform-origin: center;
+  }
+  @keyframes dash {
+    0%   { stroke-dashoffset: 283; }
+    100% { stroke-dashoffset: 40; }
+  }
+  @keyframes rotate {
+    100% { transform: rotate(360deg); }
+  }
+  .phase-done .phase-icon-container  { background: rgba(156,255,198,0.12); border-color: #9cffc6; }
+  .phase-done .phase-icon            { color: #9cffc6 !important; }
+  .phase-done .phase-text            { color: #e0e2ee !important; }
+  .phase-active .phase-icon-container{ background: rgba(156,255,198,0.06); border-color: rgba(156,255,198,0.4); }
+  .phase-active .phase-icon          { color: rgba(156,255,198,0.7) !important; }
+  .phase-active .phase-text          { color: #e0e2ee !important; }
+  .phase-error .phase-icon-container { background: rgba(255,180,171,0.12); border-color: #ffb4ab; }
+  .phase-error .phase-icon           { color: #ffb4ab !important; }
+  .phase-error .phase-text           { color: #ffb4ab !important; }
+</style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col items-center justify-center px-4">
+
+<div class="w-full max-w-sm text-center">
+
+  <!-- Logo -->
+  <div class="mb-10">
+    <img src="https://lh3.googleusercontent.com/aida/ADBb0ujN_L95LDMVtjmx__ZPayF14WCN0JbyqeyslxpTdxzXlBCxkeSLq-f_Q22--5WG2UApsUnlT_l0CDteJ7dSoqONfxvkgQ09YhtvzO2x_Gv9SKUVDHxLOFIIyFvFvP2fp_HcikqsylxLVKZj2JcO9zSHxFyPHYDr2kGBzGtq5tZ2XHKrJbNpZ_wTzi0d6VzaPvkdSypgDlq6LdskMIHgWRDhq4sOU39AAh4VvL3WJdSbQX-CMbtJBQCNaQ"
+         alt="ROrun" style="cursor:pointer;" onclick="window.location.href='home.html'" class="w-[110px] mx-auto">
+  </div>
+
+  <!-- Animated Ring -->
+  <div class="relative w-52 h-52 mx-auto mb-10 flex items-center justify-center">
+    <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#272a32" stroke-width="2" opacity="0.6"/>
+    </svg>
+    <svg class="absolute inset-0 w-full h-full -rotate-90 origin-center" viewBox="0 0 100 100">
+      <circle class="stroke-dash" cx="50" cy="50" r="45" fill="none"
+              stroke="#9cffc6" stroke-linecap="round" stroke-width="4"/>
+    </svg>
+    <div class="text-center flex flex-col items-center z-10">
+      <span class="material-symbols-outlined text-[52px] text-primary mb-1"
+            style="font-variation-settings:'FILL' 1;">vital_signs</span>
+      <span class="font-metric-xl text-metric-xl text-primary animate-pulse"
+            id="progress-percent">0%</span>
+    </div>
+  </div>
+
+  <!-- Status text -->
+  <p class="font-body-md text-body-md text-on-surface-variant mb-8" id="status-text">
+    Memproses data Anda...
+  </p>
+
+  <!-- Phases -->
+  <div class="w-full bg-surface-container/60 backdrop-blur-xl border border-white/5
+              rounded-2xl p-5 space-y-4 text-left">
+
+    <div class="phase-item flex items-center gap-4" id="phase-1">
+      <div class="phase-icon-container w-10 h-10 rounded-full border flex-shrink-0
+                  flex items-center justify-center transition-all duration-300
+                  border-outline-variant bg-surface-container">
+        <span class="material-symbols-outlined phase-icon text-on-surface-variant
+                     transition-colors duration-300 text-[18px]">pending</span>
+      </div>
+      <p class="phase-text font-body-md text-sm text-on-surface-variant transition-colors duration-300">
+        Menghitung BMI, HRmax &amp; zona HR...
+      </p>
+    </div>
+
+    <div class="phase-item flex items-center gap-4" id="phase-2">
+      <div class="phase-icon-container w-10 h-10 rounded-full border flex-shrink-0
+                  flex items-center justify-center transition-all duration-300
+                  border-outline-variant bg-surface-container">
+        <span class="material-symbols-outlined phase-icon text-on-surface-variant
+                     transition-colors duration-300 text-[18px]">pending</span>
+      </div>
+      <p class="phase-text font-body-md text-sm text-on-surface-variant transition-colors duration-300">
+        Estimasi VDOT &amp; Race Pace optimal...
+      </p>
+    </div>
+
+    <div class="phase-item flex items-center gap-4" id="phase-3">
+      <div class="phase-icon-container w-10 h-10 rounded-full border flex-shrink-0
+                  flex items-center justify-center transition-all duration-300
+                  border-outline-variant bg-surface-container">
+        <span class="material-symbols-outlined phase-icon text-on-surface-variant
+                     transition-colors duration-300 text-[18px]">pending</span>
+      </div>
+      <p class="phase-text font-body-md text-sm text-on-surface-variant transition-colors duration-300">
+        Mendeteksi risiko &amp; menyusun jadwal Hal Higdon...
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Error state (tersembunyi) -->
+  <div class="hidden mt-6 p-4 bg-error-container rounded-xl text-left" id="error-box">
+    <p class="text-error text-sm font-semibold mb-1">⚠️ Gagal menghubungi server</p>
+    <p class="text-error/70 text-xs" id="error-detail"></p>
+    <p class="text-error/60 text-xs mt-2">
+      Pastikan <code class="bg-white/10 px-1 rounded">app_api.py</code> berjalan
+      di <code class="bg-white/10 px-1 rounded">http://localhost:5000</code>
+    </p>
+    <button onclick="cobaLagi()"
+      class="mt-3 px-4 py-2 rounded-lg bg-primary text-[#0F121A] text-sm font-semibold">
+      Coba Lagi
+    </button>
+  </div>
+
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+// ─────────────────────────────────────────────────────────
+//  Konfigurasi — sesuaikan jika server berjalan di port lain
+// ─────────────────────────────────────────────────────────
+const API_BASE = 'http://localhost:5000';
+
+// ─────────────────────────────────────────────────────────
+//  Referensi elemen UI
+// ─────────────────────────────────────────────────────────
+const percentEl  = document.getElementById('progress-percent');
+const statusEl   = document.getElementById('status-text');
+const errorBox   = document.getElementById('error-box');
+const errorDetail= document.getElementById('error-detail');
+const phases     = [1, 2, 3].map(i => document.getElementById(`phase-${i}`));
+
+// ─────────────────────────────────────────────────────────
+//  Helper UI
+// ─────────────────────────────────────────────────────────
+function setPercent(p) {
+  percentEl.textContent = p + '%';
+}
+
+function setPhase(idx, state) {
+  // state: 'active' | 'done' | 'error'
+  const el = phases[idx];
+  el.classList.remove('phase-active', 'phase-done', 'phase-error');
+  el.classList.add('phase-' + state);
+  const icon = el.querySelector('.phase-icon');
+  if (state === 'done')   icon.textContent = 'check_circle';
+  if (state === 'active') icon.textContent = 'autorenew';
+  if (state === 'error')  icon.textContent = 'error';
+}
+
+function showError(msg) {
+  errorBox.classList.remove('hidden');
+  errorDetail.textContent = msg;
+  statusEl.textContent = 'Terjadi kesalahan.';
+  phases.forEach((_, i) => setPhase(i, 'error'));
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─────────────────────────────────────────────────────────
+//  Main flow
+// ─────────────────────────────────────────────────────────
+async function jalankanAnalisis() {
+  // Ambil semua data dari localStorage
+  const inputData = AppState.getAll();
+
+  try {
+    // ── FASE 1: Hitung BMI, HR ──
+    setPercent(10);
+    setPhase(0, 'active');
+    statusEl.textContent = 'Menghitung indeks massa tubuh & zona HR...';
+    await sleep(400);
+
+    // Panggil API
+    const resp = await fetch(`${API_BASE}/api/analisis`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(inputData),
+    });
+
+    if (!resp.ok) {
+      const errData = await resp.json().catch(() => ({}));
+      throw new Error(errData.error || `HTTP ${resp.status}`);
+    }
+
+    setPercent(35);
+    setPhase(0, 'done');
+
+    // ── FASE 2: VDOT & Race Pace ──
+    setPhase(1, 'active');
+    statusEl.textContent = 'Estimasi VDOT & menghitung race pace...';
+    await sleep(300);
+    setPercent(60);
+    setPhase(1, 'done');
+
+    // ── FASE 3: Jadwal Hal Higdon ──
+    setPhase(2, 'active');
+    statusEl.textContent = 'Menyusun jadwal Hal Higdon & deteksi risiko...';
+    await sleep(400);
+
+    const hasil = await resp.json();
+    if (!hasil.success) throw new Error(hasil.error || 'Server error');
+
+    setPercent(90);
+    setPhase(2, 'done');
+
+    // Simpan hasil analisis ke localStorage
+    const data = hasil.data;
+    AppState.save('analisis_result', data);
+
+    // Simpan field-field penting secara individual untuk kompatibilitas
+    AppState.save('bmi',          data.bmi);
+    AppState.save('bmi_kategori', data.bmi_kategori);
+    AppState.save('hrmax',        data.hrmax);
+    AppState.save('zona_hr',      data.zona_hr);
+    AppState.save('vdot',         data.vdot);
+    AppState.save('rp_sec',       data.rp_sec);
+    AppState.save('level',        data.level);
+    AppState.save('jarak',        data.jarak);
+    AppState.save('resiko',       data.resiko_ditemukan);
+    AppState.save('peringatan',   data.health_warnings);
+    AppState.save('dual_option_reasons', data.dual_option_reasons);
+    AppState.save('health_blocked', data.health_blocked);
+    AppState.save('level_aman',   data.level_aman);
+    AppState.save('rp_sec_aman',  data.rp_sec_aman);
+
+    // Bersihkan status pilihan sebelumnya agar tidak bocor ke tes baru
+    AppState.remove('jalur_dipilih');
+    AppState.remove('level_aktif');
+    AppState.remove('rp_sec_aktif');
+
+    await sleep(400);
+    setPercent(100);
+    
+    if (data.health_blocked || data.resiko_ditemukan) {
+      statusEl.textContent = 'Selesai! Mengidentifikasi potensi risiko...';
+      await sleep(600);
+      goTo('warning.html');
+    } else {
+      statusEl.textContent = 'Selesai! Membuka jadwal Anda...';
+      await sleep(600);
+      goTo('calendar.html');
+    }
+
+  } catch (err) {
+    console.error('Analisis error:', err);
+    showError(err.message || 'Unknown error');
+  }
+}
+
+function cobaLagi() {
+  errorBox.classList.add('hidden');
+  setPercent(0);
+  statusEl.textContent = 'Memproses data Anda...';
+  phases.forEach((el, i) => {
+    el.classList.remove('phase-active', 'phase-done', 'phase-error');
+    el.querySelector('.phase-icon').textContent = 'pending';
+  });
+  jalankanAnalisis();
+}
+
+// Mulai saat halaman terbuka
+document.addEventListener('DOMContentLoaded', jalankanAnalisis);
+</script>
+</body>
+</html>

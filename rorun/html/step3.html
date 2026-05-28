@@ -1,0 +1,316 @@
+<!DOCTYPE html><html class="dark" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ROrun - Onboarding Step 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="../assets/css/shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "primary-container": "#19eb99",
+                            "surface-variant": "#32353e",
+                            "secondary": "#f8c62c",
+                            "outline": "#849588",
+                            "on-error-container": "#ffdad6",
+                            "primary": "#9cffc6",
+                            "outline-variant": "#3b4a40",
+                            "on-secondary-container": "#554100",
+                            "on-secondary-fixed-variant": "#594400",
+                            "on-surface": "#e0e2ee",
+                            "tertiary-fixed": "#d0e4ff",
+                            "secondary-fixed-dim": "#f2c025",
+                            "on-surface-variant": "#bacbbd",
+                            "surface": "#10131b",
+                            "secondary-fixed": "#ffdf92",
+                            "surface-bright": "#363942",
+                            "tertiary-fixed-dim": "#9bcaff",
+                            "secondary-container": "#d9aa00",
+                            "inverse-on-surface": "#2d3039",
+                            "on-primary": "#003921",
+                            "surface-container-high": "#272a32",
+                            "background": "#10131b",
+                            "on-tertiary-fixed-variant": "#004a7a",
+                            "on-tertiary-fixed": "#001d35",
+                            "surface-container-lowest": "#0b0e16",
+                            "error-container": "#93000a",
+                            "surface-container-low": "#181b24",
+                            "on-primary-fixed": "#002111",
+                            "surface-container": "#1c1f28",
+                            "on-tertiary": "#003256",
+                            "on-error": "#690005",
+                            "inverse-primary": "#006d44",
+                            "error": "#ffb4ab",
+                            "tertiary-container": "#abd2ff",
+                            "surface-dim": "#10131b",
+                            "on-background": "#e0e2ee",
+                            "inverse-surface": "#e0e2ee",
+                            "on-primary-container": "#00653f",
+                            "primary-fixed": "#51ffae",
+                            "tertiary": "#dfecff",
+                            "on-tertiary-container": "#005b95",
+                            "on-primary-fixed-variant": "#005232",
+                            "on-secondary": "#3e2e00",
+                            "surface-tint": "#00e292",
+                            "surface-container-highest": "#32353e",
+                            "primary-fixed-dim": "#00e292",
+                            "on-secondary-fixed": "#241a00"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "container-margin-desktop": "48px",
+                            "container-margin-mobile": "16px",
+                            "section-gap": "32px",
+                            "unit": "8px",
+                            "gutter": "16px"
+                    },
+                    "fontFamily": {
+                            "display-lg": ["Outfit"],
+                            "label-sm": ["Inter"],
+                            "headline-lg": ["Outfit"],
+                            "display-lg-mobile": ["Outfit"],
+                            "body-md": ["Inter"],
+                            "metric-md": ["JetBrains Mono"],
+                            "body-lg": ["Inter"],
+                            "metric-xl": ["JetBrains Mono"],
+                            "headline-md": ["Outfit"]
+                    },
+                    "fontSize": {
+                            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                            "display-lg-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                            "metric-md": ["20px", { "lineHeight": "24px", "fontWeight": "500" }],
+                            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                            "metric-xl": ["40px", { "lineHeight": "40px", "letterSpacing": "-0.05em", "fontWeight": "700" }],
+                            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .glass-panel {
+            background: hsla(225, 20%, 18%, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid hsla(0, 0%, 100%, 0.08);
+        }
+        .ambient-shadow-active {
+            box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.3), 0 0 16px rgba(25, 235, 153, 0.2);
+        }
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden selection:bg-primary-container selection:text-surface-dim bg-surface-dim">
+<div class="flex h-full w-full">
+<!-- Left Side: Image Banner -->
+<div class="hidden lg:flex lg:w-5/12 xl:w-1/2 relative bg-surface-container">
+<img alt="Smartwatch with heart rate monitor on wrist" class="absolute inset-0 w-full h-full object-cover grayscale opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxgBPA9FFcLW81xZnvKfQfvYCH1ba9PxFaNBKRznc6lqtPwPTRdtrjNx25b3uaZhykLVm9lqq5QxMfTQkGC_J8faFsfydYGhQv5kA71sagc94u5YaZeL4lcrRhXgVbryrT6YaQpOMZxV-zvbpm-ZxRdESuDY3ien_UeHqJeCGaw4YdIreEsHIeSPOb3Nqd4PnmefnMRz79deJPwdcF1a6_pzMn26DTCcVvlmxSmNsMx2ZmCaEXIR7RDTSrbexEBamr8_WzN3mqMA">
+<div class="absolute inset-0 bg-gradient-to-r from-surface-dim/80 via-surface-dim/40 to-surface-dim"></div>
+<div class="relative z-10 p-container-margin-desktop flex flex-col justify-between h-full">
+<!-- Logo Top Left on Image -->
+<div class="flex items-center gap-3">
+<img alt="ROrun Logo" style="cursor:pointer;" onclick="window.location.href='home.html'" class="h-8 md:h-10" src="https://lh3.googleusercontent.com/aida/ADBb0ujN_L95LDMVtjmx__ZPayF14WCN0JbyqeyslxpTdxzXlBCxkeSLq-f_Q22--5WG2UApsUnlT_l0CDteJ7dSoqONfxvkgQ09YhtvzO2x_Gv9SKUVDHxLOFIIyFvFvP2fp_HcikqsylxLVKZj2JcO9zSHxFyPHYDr2kGBzGtq5tZ2XHKrJbNpZ_wTzi0d6VzaPvkdSypgDlq6LdskMIHgWRDhq4sOU39AAh4VvL3WJdSbQX-CMbtJBQCNaQ">
+</div>
+<div class="max-w-md">
+<h2 class="text-display-lg font-display-lg text-white mb-unit">Monitor Detak Jantung</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Personalisasi target lari Anda berdasarkan metrik jantung yang akurat atau sensasi fisik Anda.</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Content Area -->
+<div class="w-full lg:w-7/12 xl:w-1/2 flex flex-col h-full relative">
+<!-- Top Nav Mobile (Only visible on mobile) -->
+<header class="lg:hidden flex justify-between items-center px-container-margin-mobile h-16 shrink-0 bg-surface-dim/80 backdrop-blur-md z-10">
+<div class="flex items-center gap-2">
+<img alt="ROrun Logo" style="cursor:pointer;" onclick="window.location.href='home.html'" class="h-8" src="https://lh3.googleusercontent.com/aida/ADBb0ujN_L95LDMVtjmx__ZPayF14WCN0JbyqeyslxpTdxzXlBCxkeSLq-f_Q22--5WG2UApsUnlT_l0CDteJ7dSoqONfxvkgQ09YhtvzO2x_Gv9SKUVDHxLOFIIyFvFvP2fp_HcikqsylxLVKZj2JcO9zSHxFyPHYDr2kGBzGtq5tZ2XHKrJbNpZ_wTzi0d6VzaPvkdSypgDlq6LdskMIHgWRDhq4sOU39AAh4VvL3WJdSbQX-CMbtJBQCNaQ">
+</div>
+</header>
+<!-- Progress Bar Top -->
+<div class="w-full h-1 bg-surface-container-highest shrink-0 relative z-20">
+<div class="h-full bg-primary-container shadow-[0_0_8px_rgba(25,235,153,0.5)] transition-all duration-500" style="width: 50%"></div>
+</div>
+<!-- Scrollable Content Area within Split Screen -->
+<main class="flex-1 overflow-y-auto px-container-margin-mobile lg:px-12 xl:px-24 py-12 flex flex-col justify-center">
+<div class="w-full max-w-lg mx-auto flex flex-col h-full justify-center">
+<!-- Step Indicator -->
+<div class="flex items-center gap-unit text-primary-container font-label-sm font-semibold tracking-wider uppercase mb-section-gap">
+<span class="material-symbols-outlined text-[16px]">monitor_heart</span>
+<span class="">Langkah 3 dari 6</span>
+</div>
+<!-- Mobile Title (Hidden on Desktop) -->
+<section class="lg:hidden mb-section-gap">
+<h1 class="text-display-lg-mobile font-display-lg-mobile text-white mb-unit">Monitor Detak Jantung</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Personalisasi target lari Anda berdasarkan metrik jantung yang akurat atau sensasi fisik Anda.</p>
+</section>
+<!-- Form Area -->
+<form class="flex flex-col gap-6" id="onboarding-form">
+<!-- Question 1: Owns HR Monitor? -->
+<div class="flex flex-col gap-unit">
+<label class="text-headline-md font-headline-md text-white mb-2">Apakah Anda memiliki Smartwatch atau HR Monitor?</label>
+<div class="grid grid-cols-2 gap-4">
+<label class="cursor-pointer relative group">
+<input class="peer sr-only" name="has_hrm" type="radio" value="yes">
+<div class="h-full p-4 rounded-xl border border-outline-variant bg-surface-container transition-all duration-200 peer-checked:border-primary-container peer-checked:bg-primary-container/10 peer-checked:ambient-shadow-active group-hover:border-outline flex flex-col items-center justify-center gap-2 text-center">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant peer-checked:text-primary-container transition-colors" style="font-variation-settings: 'FILL' 1;">watch</span>
+<span class="text-body-md font-body-md text-on-surface font-semibold peer-checked:text-white">Ya, Saya Punya</span>
+</div>
+</label>
+<label class="cursor-pointer relative group">
+<input class="peer sr-only" name="has_hrm" type="radio" value="no">
+<div class="h-full p-4 rounded-xl border border-outline-variant bg-surface-container transition-all duration-200 peer-checked:border-primary-container peer-checked:bg-primary-container/10 peer-checked:ambient-shadow-active group-hover:border-outline flex flex-col items-center justify-center gap-2 text-center">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant peer-checked:text-primary-container transition-colors" style="font-variation-settings: 'FILL' 1;">block</span>
+<span class="text-body-md font-body-md text-on-surface font-semibold peer-checked:text-white">Tidak Punya</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Dynamic Section: Has HR Monitor -->
+<div class="flex flex-col gap-6 transition-opacity duration-300 hidden" id="section-has-hrm">
+<!-- Info Box -->
+<div class="glass-panel rounded-xl p-4 border-l-2 border-l-primary-container flex gap-3 items-start bg-surface-container/50">
+<span class="material-symbols-outlined text-primary-container shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="text-body-md font-body-md text-on-surface text-sm">Sistem akan menggunakan detak jantung Anda untuk menentukan zona latihan yang ideal, memaksimalkan performa dan mencegah overtraining.</p>
+</div>
+<!-- Resting Heart Rate -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-headline-md font-headline-md text-white text-xl">Resting Heart Rate (RHR)</h3>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mb-2">Detak jantung terendah Anda saat beristirahat penuh, biasanya diukur saat baru bangun tidur.</p>
+<div class="grid grid-cols-2 gap-4">
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="knows_rhr" type="radio" value="yes">
+<div class="py-3 px-4 rounded-lg border border-outline-variant bg-surface-container transition-all duration-200 peer-checked:border-primary-container peer-checked:bg-primary-container/10 text-center peer-checked:text-white text-on-surface">
+<span class="text-body-md font-body-md font-semibold">Ya, Tahu</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="knows_rhr" type="radio" value="no">
+<div class="py-3 px-4 rounded-lg border border-outline-variant bg-surface-container transition-all duration-200 peer-checked:border-primary-container peer-checked:bg-primary-container/10 text-center peer-checked:text-white text-on-surface">
+<span class="text-body-md font-body-md font-semibold">Tidak Tahu</span>
+</div>
+</label>
+</div>
+<!-- RHR Input Field -->
+<div class="mt-2 transition-all duration-300 origin-top hidden" id="rhr-input-wrapper">
+<div class="relative group">
+<input class="w-full bg-surface-container-high border border-outline-variant rounded-xl py-4 px-4 text-metric-md font-metric-md text-white focus:border-primary-container focus:ring-1 focus:ring-primary-container focus:outline-none transition-colors placeholder:text-on-surface-variant/50" id="rhr-input" max="120" min="30" placeholder="Masukkan angka (Misal: 55)" type="number">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-metric-md text-sm pointer-events-none group-focus-within:text-primary-container transition-colors">bpm</span>
+</div>
+</div>
+<!-- RHR Warning -->
+<div class="hidden mt-2 glass-panel border border-outline-variant rounded-xl p-4 flex gap-3 items-start bg-surface-container/50" id="rhr-warning-wrapper">
+<span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">warning</span>
+<p class="text-body-md font-body-md text-sm text-on-surface-variant">Sistem akan mengkalkulasi zona latihan berdasarkan estimasi Max HR standar berdasarkan usia Anda.</p>
+</div>
+</div>
+</div>
+<!-- Dynamic Section: No HR Monitor -->
+<div class="hidden flex flex-col gap-6 transition-opacity duration-300" id="section-no-hrm">
+<div class="glass-panel rounded-xl p-4 border-l-2 border-l-secondary flex gap-3 items-start bg-surface-container/50">
+<span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">speed</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-body-md font-body-md font-bold text-white">Metode RPE (Rate of Perceived Exertion)</h4>
+<p class="text-body-md font-body-md text-sm text-on-surface-variant">Karena Anda tidak menggunakan monitor jantung, panduan latihan akan menggunakan skala sensasi fisik 1-10. Anda akan diajarkan cara mengukur intensitas berdasarkan tingkat kesulitan bernapas dan kelelahan otot.</p>
+</div>
+</div>
+</div>
+</form>
+<!-- Spacer to push navigation to bottom if needed, or just let it flow naturally -->
+<div class="flex-grow min-h-[32px]"></div>
+<!-- Navigation Buttons - Sticky on mobile, normal flow on desktop but always at bottom of content -->
+<div class="sticky bottom-0 lg:static flex gap-4 pt-4 pb-8 lg:pb-0 bg-surface-dim lg:bg-transparent mt-auto z-10 border-t border-white/5 lg:border-transparent">
+<button onclick="goTo('step2.html')" class="flex-1 py-4 px-6 rounded-xl border border-outline-variant text-on-surface font-label-sm font-bold uppercase tracking-wider hover:bg-surface-container hover:text-white transition-colors text-center" type="button">
+                            Kembali
+                        </button>
+<button onclick="simpanStep3()" class="flex-[2] py-4 px-6 rounded-xl bg-primary-container text-surface-dim font-label-sm font-bold uppercase tracking-wider hover:brightness-110 transition-colors shadow-[0_0_20px_rgba(25,235,153,0.2)] hover:shadow-[0_0_24px_rgba(25,235,153,0.4)] text-center" type="button">
+                            Lanjutkan
+                        </button>
+</div>
+</div>
+</main>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hrmRadios = document.querySelectorAll('input[name="has_hrm"]');
+            const rhrRadios = document.querySelectorAll('input[name="knows_rhr"]');
+            
+            const sectionHasHrm = document.getElementById('section-has-hrm');
+            const sectionNoHrm = document.getElementById('section-no-hrm');
+            
+            const rhrInputWrapper = document.getElementById('rhr-input-wrapper');
+            const rhrWarningWrapper = document.getElementById('rhr-warning-wrapper');
+
+            // Toggle Main HRM sections
+            hrmRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'yes') {
+                        sectionHasHrm.classList.remove('hidden');
+                        sectionNoHrm.classList.add('hidden');
+                        setTimeout(() => {
+                            sectionHasHrm.style.opacity = '1';
+                        }, 50);
+                    } else {
+                        sectionHasHrm.style.opacity = '0';
+                        setTimeout(() => {
+                            sectionHasHrm.classList.add('hidden');
+                            sectionNoHrm.classList.remove('hidden');
+                            sectionNoHrm.style.opacity = '1';
+                        }, 300);
+                    }
+                });
+            });
+
+            // Toggle RHR Input/Warning
+            rhrRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'yes') {
+                        rhrInputWrapper.classList.remove('hidden');
+                        rhrWarningWrapper.classList.add('hidden');
+                    } else {
+                        rhrInputWrapper.classList.add('hidden');
+                        rhrWarningWrapper.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+<script src="../assets/js/shared.js"></script>
+<script>
+function simpanStep3() {
+  const punyaHRM = document.querySelector('input[name="has_hrm"]:checked')?.value || 'no';
+  const tahuRHR  = document.querySelector('input[name="knows_rhr"]:checked')?.value || 'no';
+  const nilaiRHR = document.getElementById('rhr-input')?.value || '';
+
+  if (punyaHRM === 'yes' && tahuRHR === 'yes' && !nilaiRHR) {
+    alert("Harap masukkan nilai Resting Heart Rate (RHR) Anda.");
+    return;
+  }
+
+  AppState.save('punya_hrm', punyaHRM);
+  AppState.save('tahu_rhr', tahuRHR);
+  AppState.save('rhr', nilaiRHR);
+
+  goTo('step4.html');
+}
+</script>
+</body></html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html><html class="dark" lang="id" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Workout Detail - ROrun</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="../assets/css/shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+... // standard tailwind config can be shortened or kept same
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#93000a",
+                    "surface-container-low": "#181b24",
+                    "on-surface": "#e0e2ee",
+                    "surface-container-highest": "#32353e",
+                    "on-background": "#e0e2ee",
+                    "surface": "#10131b",
+                    "on-tertiary-container": "#005b95",
+                    "surface-container": "#1c1f28",
+                    "on-error": "#690005",
+                    "surface-bright": "#363942",
+                    "primary-fixed-dim": "#00e292",
+                    "secondary-fixed": "#ffdf92",
+                    "on-tertiary-fixed-variant": "#004a7a",
+                    "surface-container-lowest": "#0b0e16",
+                    "inverse-on-surface": "#2d3039",
+                    "outline": "#849588",
+                    "on-secondary-fixed": "#241a00",
+                    "secondary-fixed-dim": "#f2c025",
+                    "on-primary": "#003921",
+                    "primary-fixed": "#51ffae",
+                    "secondary-container": "#d9aa00",
+                    "surface-tint": "#00e292",
+                    "surface-dim": "#10131b",
+                    "on-primary-container": "#00653f",
+                    "surface-variant": "#32353e",
+                    "on-secondary-fixed-variant": "#594400",
+                    "tertiary-fixed-dim": "#9bcaff",
+                    "on-tertiary": "#003256",
+                    "surface-container-high": "#272a32",
+                    "on-tertiary-fixed": "#001d35",
+                    "background": "#10131b",
+                    "inverse-primary": "#006d44",
+                    "primary-container": "#19eb99",
+                    "on-primary-fixed": "#002111",
+                    "on-secondary": "#3e2e00",
+                    "outline-variant": "#3b4a40",
+                    "tertiary": "#dfecff",
+                    "secondary": "#f8c62c",
+                    "primary": "#9cffc6",
+                    "inverse-surface": "#e0e2ee",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#bacbbd",
+                    "on-secondary-container": "#554100",
+                    "tertiary-fixed": "#d0e4ff",
+                    "tertiary-container": "#abd2ff",
+                    "on-primary-fixed-variant": "#005232",
+                    "error": "#ffb4ab"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "metric-xl": ["JetBrains Mono"],
+                    "metric-md": ["JetBrains Mono"],
+                    "headline-md": ["Outfit"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Outfit"],
+                    "display-lg-mobile": ["Outfit"],
+                    "display-lg": ["Outfit"],
+                    "body-md": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-panel {
+            background-color: hsla(225, 20%, 18%, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid hsla(0, 0%, 100%, 0.08);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen relative overflow-hidden">
+<!-- BACKGROUND LAYER (Blurred Calendar Context) -->
+<div class="absolute inset-0 z-0 blur-[6px] opacity-40 pointer-events-none flex flex-col">
+    <div class="glass-panel w-full h-full p-8">
+        <div class="text-headline-lg text-primary opacity-50">Calendar View</div>
+        <div class="grid grid-cols-7 gap-4 mt-8">
+            <script>
+                for(let i=0; i<28; i++) {
+                    document.write(`<div class="bg-surface-variant h-24 rounded-lg opacity-30"></div>`);
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- OVERLAY LAYER (Modal) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-surface-container-lowest/80 backdrop-blur-md">
+<!-- Modal Card -->
+<div class="glass-panel w-full max-w-[600px] rounded-2xl shadow-[0_8px_32px_hsla(0,0%,0%,0.5)] flex flex-col overflow-hidden relative animate-[fadeIn_0.3s_ease-out]">
+<!-- Glow Accent -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50" id="glowAccent"></div>
+<!-- Header -->
+<div class="p-6 md:p-8 flex justify-between items-start border-b border-white/5">
+<div>
+<div class="text-body-md font-body-md text-on-surface-variant mb-2" id="workoutDate">Memuat Hari...</div>
+<div class="flex items-center gap-3 flex-wrap">
+<h2 class="text-headline-lg font-headline-lg text-on-surface" id="workoutTitle">Sesi Latihan</h2>
+<span id="workoutBadge" class="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-label-sm font-label-sm uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" id="workoutIcon">fitness_center</span>
+<span id="workoutIntensitas">Intensitas</span>
+</span>
+</div>
+</div>
+<button onclick="goTo('calendar.html')" aria-label="Tutup" class="text-on-surface-variant hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-bright/50 focus:outline-none focus:ring-2 focus:ring-primary/50">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Content Body -->
+<div class="p-6 md:p-8 flex flex-col gap-8 overflow-y-auto max-h-[70vh]">
+<!-- Metrics Bento Box -->
+<div class="grid grid-cols-2 gap-4" id="metricsGrid">
+<div class="bg-surface-container/40 rounded-xl p-5 border border-white/5 flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Estimasi Jarak</span>
+<div class="flex items-baseline gap-2">
+<span class="text-metric-xl font-metric-xl text-primary drop-shadow-[0_0_12px_rgba(156,255,198,0.3)]" id="targetJarak">--</span>
+<span class="text-body-md font-body-md text-primary/70">km</span>
+</div>
+</div>
+<div class="bg-surface-container/40 rounded-xl p-5 border border-white/5 flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Target Pace</span>
+<div class="flex items-baseline gap-2">
+<span class="text-metric-xl font-metric-xl text-on-surface" id="targetPace">--</span>
+<span class="text-body-md font-body-md text-on-surface-variant">/km</span>
+</div>
+</div>
+<div id="hrCard" class="bg-surface-container/40 rounded-xl p-5 border border-white/5 flex flex-col gap-1 relative overflow-hidden group hidden">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Target HR</span>
+<div class="flex items-baseline gap-2">
+<span class="text-metric-md font-metric-md text-on-surface" id="targetHR">--</span>
+</div>
+</div>
+</div>
+
+<!-- Instructions -->
+<div class="flex flex-col gap-3">
+<h3 class="text-body-lg font-body-lg text-on-surface font-semibold">Instruksi Sesi</h3>
+<ul class="flex flex-col gap-2" id="instruksiList">
+    <!-- Populated by JS -->
+</ul>
+</div>
+
+</div>
+<!-- Footer Actions -->
+<div class="p-6 border-t border-white/5 flex justify-center items-center bg-surface-container-lowest/50 backdrop-blur-md">
+<button onclick="goTo('calendar.html')" class="flex items-center gap-2 text-label-sm font-label-sm text-primary border border-primary/30 px-6 py-3 rounded-lg hover:bg-primary/10 transition-colors focus:ring-2 focus:ring-primary focus:outline-none bg-surface-container">
+                    Kembali ke Kalender
+                </button>
+</div>
+</div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const workout = AppState.get('selected_workout');
+    const analisisResult = AppState.get('analisis_result');
+    const rpSec = AppState.get('rp_sec_aktif') || (analisisResult ? analisisResult.rp_sec : 390);
+
+    if (!workout) {
+        goTo('calendar.html');
+        return;
+    }
+
+    document.getElementById('workoutDate').textContent = 'Hari ' + workout.day;
+    
+    // Clean up text
+    let sesiText = workout.sessionText || '';
+    let jarakMatch = sesiText.match(/([\d\.]+)\s*km/i);
+    let jarak = jarakMatch ? jarakMatch[1] : '--';
+    
+    // Global detection flags
+    const intervalPattern = /(\d+)\s*[xX*×]\s*(\d+)/;
+    const isInterval = sesiText.toLowerCase().includes('interval') || 
+                       intervalPattern.test(sesiText) || 
+                       sesiText.toLowerCase().includes(' repetisi') ||
+                       sesiText.toLowerCase().includes('reps');
+    const isFartlek = sesiText.toLowerCase().includes('fartlek');
+
+    document.getElementById('targetJarak').textContent = jarak;
+
+    let title = 'Latihan lari';
+    let icon = 'directions_run';
+    let intentClass = 'bg-primary/10 text-primary border-primary/20';
+    let intentText = 'Menjaga Kebugaran';
+    let paceInfo = formatPace(rpSec + 60); // Default easy pace
+    let instructionsHtml = '';
+
+    if (workout.type === 'rest') {
+        title = 'Rest Day';
+        icon = 'bed';
+        jarak = '0';
+        paceInfo = '--';
+        intentClass = 'bg-surface-variant/30 text-on-surface-variant border-surface-variant/50';
+        intentText = 'Pemulihan';
+        document.getElementById('targetJarak').textContent = '0';
+        
+        instructionsHtml = `
+            <li class="flex items-center gap-4 bg-surface-container-low/50 p-3 rounded-lg border border-white/5">
+                <div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-label-sm font-label-sm text-on-surface-variant">1</div>
+                <span class="text-body-md font-body-md text-on-surface">Istirahat total, tidak ada aktivitas lari.</span>
+            </li>
+            <li class="flex items-center gap-4 bg-surface-container-low/50 p-3 rounded-lg border border-white/5">
+                <div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-label-sm font-label-sm text-on-surface-variant">2</div>
+                <span class="text-body-md font-body-md text-on-surface">Jika ingin bergerak, pilih aktivitas ringan seperti yoga ringan atau jalan kaki santai.</span>
+            </li>
+        `;
+    } else if (workout.type === 'race') {
+        title = 'RACE DAY';
+        icon = 'emoji_events';
+        paceInfo = formatPace(rpSec);
+        intentClass = 'bg-error/10 text-error border-error/20';
+        intentText = 'Hari Perlombaan';
+        
+        instructionsHtml = `
+            <li class="flex items-center gap-4 bg-surface-container-low/50 p-3 rounded-lg border border-white/5">
+                <div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-label-sm font-label-sm text-on-surface-variant">1</div>
+                <span class="text-body-md font-body-md text-on-surface">Pemanasan ringan 15 menit sebelum start.</span>
+            </li>
+            <li class="flex items-center gap-4 bg-error/10 p-3 rounded-lg border border-error/20 relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+                <div class="w-6 h-6 rounded-full bg-error text-on-error flex items-center justify-center text-label-sm font-label-sm font-bold">2</div>
+                <span class="text-body-md font-body-md text-on-surface font-medium">Lari perlombaan di target pace (${paceInfo} /km) sejauh ${jarak} km</span>
+            </li>
+            <li class="flex items-center gap-4 bg-surface-container-low/50 p-3 rounded-lg border border-white/5">
+                <div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-label-sm font-label-sm text-on-surface-variant">3</div>
+                <span class="text-body-md font-body-md text-on-surface">Pendinginan ringan, rehidrasi dan pemulihan.</span>
+            </li>
+        `;
+    } else {
+        // Run types
+
+        
+        if (sesiText.toLowerCase().includes('long')) {
+            title = 'Long Run';
+            icon = 'route';
+            paceInfo = formatPace(rpSec + 50);
+            intentClass = 'bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim border-tertiary-fixed-dim/20';
+            intentText = 'Daya Tahan';
+        } else if (sesiText.toLowerCase().includes('cepat')) {
+            title = 'Fast Run';
+            icon = 'speed';
+            paceInfo = formatPace(rpSec);
+            intentClass = 'bg-secondary-fixed-dim/10 text-secondary-fixed-dim border-secondary-fixed-dim/20';
+            intentText = 'Kecepatan & Simulasi Lomba';
+        } else if (isInterval) {
+            title = 'Speedwork / Interval';
+            icon = 'bolt';
+            let intPace = analisisResult && analisisResult.training_paces ? analisisResult.training_paces.interval : rpSec - 30;
+            paceInfo = formatPace(intPace);
+            intentClass = 'bg-[#ffc107]/20 text-[#ffc107] border-[#ffc107]/30';
+            intentText = 'VO2 Max & Daya Ledak';
+        } else if (sesiText.toLowerCase().includes('tempo')) {
+            title = 'Tempo Run';
+            icon = 'trending_up';
+            let tempPace = analisisResult && analisisResult.training_paces ? analisisResult.training_paces.threshold : rpSec - 10;
+            paceInfo = formatPace(tempPace);
+            intentClass = 'bg-secondary/20 text-secondary border-secondary/30';
+            intentText = 'Ambang Laktat (Batas Lelah)';
+        } else if (sesiText.toLowerCase().includes('hill') || sesiText.toLowerCase().includes('tanjakan')) {
+            title = 'Hill Training (Tanjakan)';
+            icon = 'landscape';
+            paceInfo = 'Berdasarkan Effort';
+            intentClass = 'bg-[#ff7043]/20 text-[#ff7043] border-[#ff7043]/30';
+            intentText = 'Kekuatan & Ketahanan Otot';
+        } else if (isFartlek) {
+            title = 'Fartlek';
+            icon = 'shuffle';
+            let fartlekPace = rpSec + 20; // Between easy and tempo
+            paceInfo = formatPace(fartlekPace);
+            intentClass = 'bg-[#ab47bc]/20 text-[#ab47bc] border-[#ab47bc]/30';
+            intentText = 'Permainan Kecepatan';
+        } else {
+            title = 'Easy Run';
+            icon = 'directions_run';
+            paceInfo = formatPace(rpSec + 60);
+            intentClass = 'bg-primary/10 text-primary border-primary/20';
+            intentText = 'Aerobik Dasar';
+        }
+
+        instructionsHtml = `
+            <li class="flex items-center gap-4 bg-surface-container-low/50 p-3 rounded-lg border border-white/5">
+                <div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-label-sm font-label-sm text-on-surface-variant">1</div>
+                <span class="text-body-md font-body-md text-on-surface">Pemanasan 10 min dinamis.</span>
+            </li>
+            <li class="flex items-center gap-4 bg-surface-bright/30 p-3 rounded-lg border border-white/10 relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-white/50"></div>
+                <div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-label-sm font-label-sm font-bold text-on-surface">2</div>
+                <span class="text-body-md font-body-md text-on-surface font-medium">${sesiText.replace(/🏃 |🎯 |🛌 /g, '')} di sekitar pace ${paceInfo} /km</span>
+            </li>
+            <li class="flex items-center gap-4 bg-surface-container-low/50 p-3 rounded-lg border border-white/5">
+                <div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-label-sm font-label-sm text-on-surface-variant">3</div>
+                <span class="text-body-md font-body-md text-on-surface">Pendinginan 5 min jalan kaki.</span>
+            </li>
+        `;
+    }
+
+    // Set header
+    document.getElementById('targetPace').textContent = paceInfo;
+    document.getElementById('workoutTitle').textContent = title;
+    document.getElementById('workoutIcon').textContent = icon;
+    document.getElementById('workoutBadge').className = intentClass + " px-3 py-1 rounded-full text-label-sm font-label-sm uppercase tracking-wider flex items-center gap-1";
+    document.getElementById('workoutIntensitas').textContent = intentText;
+
+    // Detail Intensitas (HR atau RPE)
+    let intensitasInstruksi = '';
+    if (workout.type !== 'rest') {
+        const punyaHrm = AppState.get('punya_hrm');
+        if (analisisResult && punyaHrm === 'yes' && analisisResult.zona_hr) {
+            let hrInfo = '--';
+            let zona_nama = '';
+            
+            if (workout.type === 'race') {
+                hrInfo = analisisResult.zona_hr.Z4_Interval || '--';
+                zona_nama = 'Zona 4 (Threshold) / Zona 5 (Maksimal)';
+            } else if (isInterval) {
+                hrInfo = analisisResult.zona_hr.Z5_Max || analisisResult.zona_hr.Z4_Interval || '--';
+                zona_nama = 'Zona 4-5 (VO2 Max / Maksimal)';
+            } else if (sesiText.toLowerCase().includes('cepat') || sesiText.toLowerCase().includes('tempo')) {
+                hrInfo = analisisResult.zona_hr.Z3_Tempo || '--';
+                zona_nama = 'Zona 3 (Tempo / Moderat)';
+            } else if (isFartlek) {
+                hrInfo = analisisResult.zona_hr.Z3_Tempo || '--';
+                zona_nama = 'Zona 3 (Tempo / Variasi Kecepatan)';
+            } else if (sesiText.toLowerCase().includes('hill') || sesiText.toLowerCase().includes('tanjakan')) {
+                hrInfo = analisisResult.zona_hr.Z4_Interval || '--';
+                zona_nama = 'Zona 4 (Keras / Melawan Gravitasi)';
+            } else if (sesiText.toLowerCase().includes('long')) {
+                hrInfo = analisisResult.zona_hr.Z2_Aerobic || '--';
+                zona_nama = 'Zona 2 (Aerobik Ringan)';
+            } else {
+                hrInfo = analisisResult.zona_hr.Z1_Easy || '--';
+                zona_nama = 'Zona 1 (Pemulihan) / Zona 2 (Aerobik Ringan)';
+            }
+            
+            document.getElementById('hrCard').classList.remove('hidden');
+            document.getElementById('targetHR').textContent = hrInfo;
+            document.getElementById('metricsGrid').classList.replace('grid-cols-2', 'md:grid-cols-3');
+
+            intensitasInstruksi = `
+            <li class="flex items-center gap-4 bg-primary/5 p-3 rounded-lg border border-primary/20 relative overflow-hidden mt-2">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+                <div class="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-label-sm font-label-sm font-bold">
+                    <span class="material-symbols-outlined text-[14px]">favorite</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-body-md font-body-md text-on-surface font-medium">Jaga detak jantung di <b>${zona_nama}</b></span>
+                    <span class="text-sm text-on-surface-variant font-normal">Target HR: ${hrInfo} bpm</span>
+                </div>
+            </li>`;
+        } else {
+            // Gunakan RPE jika tidak punya HRM
+            let rpeVal = '';
+            let rpeDesc = '';
+            if (workout.type === 'race') {
+                rpeVal = '8-10';
+                rpeDesc = 'Napas sangat berat, tidak bisa bicara sama sekali.';
+            } else if (isInterval) {
+                rpeVal = '9-10';
+                rpeDesc = 'Sangat keras, hampir tidak bisa bicara, napas maksimal.';
+            } else if (sesiText.toLowerCase().includes('cepat') || sesiText.toLowerCase().includes('tempo')) {
+                rpeVal = '5-6';
+                rpeDesc = 'Napas teratur tapi berat, bisa bicara kalimat pendek.';
+            } else if (isFartlek) {
+                rpeVal = '5-7';
+                rpeDesc = 'Variasi intensitas, dari nyaman hingga tidak bisa bicara saat cepat.';
+            } else if (sesiText.toLowerCase().includes('hill') || sesiText.toLowerCase().includes('tanjakan')) {
+                rpeVal = '7-8';
+                rpeDesc = 'Kerja otot berat melawan gravitasi, napas cepat.';
+            } else if (sesiText.toLowerCase().includes('long')) {
+                rpeVal = '4-5';
+                rpeDesc = 'Napas stabil, ngobrol cukup lancar.';
+            } else {
+                rpeVal = '3-4';
+                rpeDesc = 'Sangat ringan, bernapas mudah, bisa ngobrol lancar.';
+            }
+            
+            intensitasInstruksi = `
+            <li class="flex items-center gap-4 bg-secondary/5 p-3 rounded-lg border border-secondary/20 relative overflow-hidden mt-2">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+                <div class="w-6 h-6 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-label-sm font-label-sm font-bold">
+                    <span class="material-symbols-outlined text-[14px]">speed</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-body-md font-body-md text-on-surface font-medium">Target Intensitas RPE: <b>Skala ${rpeVal}</b></span>
+                    <span class="text-sm text-on-surface-variant font-normal">${rpeDesc}</span>
+                </div>
+            </li>`;
+        }
+    }
+
+    document.getElementById('instruksiList').innerHTML = instructionsHtml + intensitasInstruksi;
+
+    // Change glow accent based on intent
+    const glow = document.getElementById('glowAccent');
+    if (workout.type === 'race') glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-error to-transparent opacity-50";
+    else if (sesiText.toLowerCase().includes('long')) glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-tertiary-fixed-dim to-transparent opacity-50";
+    else if (sesiText.toLowerCase().includes('cepat')) glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary-fixed-dim to-transparent opacity-50";
+    else if (isInterval) glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ffc107] to-transparent opacity-50";
+    else if (sesiText.toLowerCase().includes('hill') || sesiText.toLowerCase().includes('tanjakan')) glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff7043] to-transparent opacity-50";
+    else if (sesiText.toLowerCase().includes('tempo')) glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50";
+    else if (isFartlek) glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ab47bc] to-transparent opacity-50";
+    else if (workout.type === 'rest') glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-surface-variant to-transparent opacity-50";
+    else glow.className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50";
+
+});
+</script>
+</body></html>

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.env
+
+# JSON databases (optional, to avoid overriding local user DB when pushing)
+# database_user.json
+
+# Editors
+.vscode/
+.idea/
+.DS_Store

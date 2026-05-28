@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengarahkan ke ROrun...</title>
+    <!-- Redirect to the actual app entry point -->
+    <meta http-equiv="refresh" content="0; url=rorun/html/index.html">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            padding: 2rem;
+        }
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <h1>Membuka ROrun...</h1>
+        <p>Jika Anda tidak dialihkan secara otomatis, silakan <a href="rorun/html/index.html">klik di sini</a>.</p>
+    </div>
+    <script>
+        // Fallback redirection in case meta refresh fails
+        window.location.href = "rorun/html/index.html";
+    </script>
+</body>
+</html>
