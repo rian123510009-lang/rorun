@@ -21,6 +21,8 @@
 import json
 import os
 import datetime
+import threading
+import requests
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from engine import analisis_pengguna, generate_jadwal
@@ -31,21 +33,44 @@ CORS(app)  # Izinkan request dari file:// dan localhost
 DB_FILE = "database_user.json"
 
 
+def send_to_google_sheets(url: str, payload: dict):
+    """Background task untuk mengirim data ke Google Sheets Web App."""
+    try:
+        requests.post(url, json=payload, timeout=10, allow_redirects=True)
+    except Exception as e:
+        print(f"Error sending to Google Sheets: {e}")
+
 def simpan_ke_db(data: dict):
-    """Simpan data user ke file JSON lokal (untuk analitik/debug)."""
-    db = []
-    if os.path.exists(DB_FILE):
-        try:
-            with open(DB_FILE, "r", encoding="utf-8") as f:
-                db = json.load(f)
-        except Exception:
-            db = []
-    db.append({
+    """
+    Simpan data user ke Google Sheets jika GOOGLE_SHEET_WEBAPP_URL diset.
+    Jika tidak, simpan ke file JSON lokal (fallback untuk local dev).
+    """
+    payload = {
         "timestamp": datetime.datetime.now().isoformat(),
         **data
-    })
-    with open(DB_FILE, "w", encoding="utf-8") as f:
-        json.dump(db, f, indent=2, ensure_ascii=False)
+    }
+
+    # Gunakan environment variable jika ada, atau URL hardcode sebagai default untuk lokal
+    sheet_url = os.environ.get(
+        "GOOGLE_SHEET_WEBAPP_URL",
+        "https://script.google.com/macros/s/AKfycbwYx1tGVDkFMMH9nQKTibxVbYOsBT8HfHiKi7GKUYU1faumiZjWPDj8DLuTRSWKm-Vwqg/exec"
+    )
+    
+    if sheet_url:
+        # Kirim secara asynchronous agar tidak memblokir response API
+        threading.Thread(target=send_to_google_sheets, args=(sheet_url, payload), daemon=True).start()
+    else:
+        # Fallback ke JSON lokal
+        db = []
+        if os.path.exists(DB_FILE):
+            try:
+                with open(DB_FILE, "r", encoding="utf-8") as f:
+                    db = json.load(f)
+            except Exception:
+                db = []
+        db.append(payload)
+        with open(DB_FILE, "w", encoding="utf-8") as f:
+            json.dump(db, f, indent=2, ensure_ascii=False)
 
 
 @app.route("/api/health", methods=["GET"])
@@ -69,11 +94,13 @@ def api_analisis():
 
         hasil = analisis_pengguna(input_data)
 
-        # Simpan ke DB lokal (opsional, dimatikan agar tidak trigger live server reload)
-        # try:
-        #     simpan_ke_db({k: v for k, v in hasil.items() if not isinstance(v, dict)})
-        # except Exception:
-        #     pass
+        # Simpan ke Database
+        try:
+            # Hanya simpan tipe data primitif ke spreadsheet
+            data_to_save = {k: v for k, v in hasil.items() if not isinstance(v, dict) and not isinstance(v, list)}
+            simpan_ke_db(data_to_save)
+        except Exception as e:
+            print(f"Error calling simpan_ke_db: {e}")
 
         return jsonify({"success": True, "data": hasil})
 
@@ -133,11 +160,13 @@ def api_jadwal_lengkap():
         if hasil.get("resiko_ditemukan"):
             jadwal_aman = generate_jadwal(hasil, hasil["level_aman"], hasil["rp_sec_aman"])
 
-        # Simpan ke DB lokal (opsional, dimatikan agar tidak trigger live server reload)
-        # try:
-        #     simpan_ke_db({k: v for k, v in hasil.items() if not isinstance(v, dict)})
-        # except Exception:
-        #     pass
+        # Simpan ke Database
+        try:
+            # Hanya simpan tipe data primitif ke spreadsheet
+            data_to_save = {k: v for k, v in hasil.items() if not isinstance(v, dict) and not isinstance(v, list)}
+            simpan_ke_db(data_to_save)
+        except Exception as e:
+            print(f"Error calling simpan_ke_db: {e}")
 
         return jsonify({
             "success":      True,

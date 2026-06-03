@@ -3,6 +3,15 @@
 // Menyimpan dan mengambil data antar halaman
 // ============================================
 
+// Auto-detect API Base URL (Local vs Production/HF Spaces)
+const API_BASE = (function() {
+  if (window.location.protocol === 'file:' || 
+      ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '7860')) {
+    return 'http://localhost:7860';
+  }
+  return '';
+})();
+
 const AppState = {
 
   // Simpan satu data

@@ -282,7 +282,7 @@ window.addEventListener('DOMContentLoaded', async function() {
 
     try {
         // Fetch schedule from API
-        const response = await fetch('/api/jadwal', {
+        const response = await fetch(`${API_BASE}/api/jadwal`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
